@@ -1,0 +1,75 @@
+body{
+  font-weight: bold!important;
+  font-family: 'Comic Sans MS'!important;
+  background-color:black!important;
+  background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+}
+
+.jumbotron{
+  background-color: rgba(255,255,255, 0.1)!important;
+}
+
+.restart{
+  position: relative;
+  top: 20px;
+  background-color: rgba(255,255,255, 0.3)!important;
+  border-color: black!important;
+  color: white!important;
+}
+
+.display-4{
+  text-align: center;
+  color: white;
+}
+
+#info{
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 5px;
+  top: 60px;
+}
+
+.infoAboutGame{
+  font-size: 40px;
+}
+
+.message{
+  font-size: 30px;
+}
+
+#center{
+    text-align: center;
+}
+
+#table{
+  position: relative;
+  top: 80px;
+  width: 780px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#tableGame{
+  position: relative;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
+.circle {
+	border-radius: 50%;
+  background-color: rgb(128, 128, 128);
+  opacity: 0.8;
+  width: 100px;
+  height: 100px;
+}
+
+td{
+  background-color: yellow;
+}
