@@ -1,5 +1,3 @@
-
-
 function namePlayers(){
   // players = {};
   // bootbox.prompt('Player B please write your name you will be red',
@@ -12,13 +10,25 @@ function namePlayers(){
   //   });
   var playerA_name = prompt('Player A please write your name you will be blue');
   var playerB_name = prompt('Player B please write your name you will be red');
-  chips.css('background-color', 'rgb(128, 128, 128)');
-   var playerA_color = 'rgb(0, 102, 255)';
-   var playerB_color = 'rgb(255, 51, 51)';
+
+  if(!playerA_name || !playerB_name){
+    playerA_name = prompt('Player A please write your name you will be blue');
+    playerB_name = prompt('Player B please write your name you will be red');
+  }
+
+   var playerA_color = {'rgb':'rgb(0, 102, 255)',
+                        'nameColor': 'blue'
+                      };
+   var playerB_color = {'rgb':'rgb(255, 51, 51)',
+                        'nameColor': 'red'
+                      };
+
    return {'playerA': {'name': playerA_name,
-                      'color': playerA_color},
+                      'color': playerA_color
+                      },
           'playerB': {'name': playerB_name,
-                      'color': playerB_color},
+                      'color': playerB_color
+                     }
           }
 };
 
@@ -74,8 +84,22 @@ function checkingHorizonatally(lastChip, playerWhoPlay_color){
     }
   }
   return false;
-}  //poziomo
+}
 
+function checkingDiagonally(lastChip, playerWhoPlay_color){
+  var countingColors = 0;
+  var rowCells = $(lastChip).parent().find('td');
+
+  for (var i = 0; i < rowCells.length; i++) {
+    for (var j = 0; j < lastChip.length; j++) {
+      // console.log(rowCells[i], lastChip[i] == playerWhoPlay_color && rowCells[i+1], lastChip[i+1] == playerWhoPlay_color);
+    }
+  }
+};
+
+function messageForPlayers(playerName, playerColor){
+  return $('.message').text(`${playerName} it is your turn, please pick a column to drop your ${playerColor} chip.`);
+}
 
 $('document').ready(function(){
 
@@ -85,8 +109,11 @@ $('document').ready(function(){
   chips.css('background-color', 'rgb(128, 128, 128)');
   highlitedChipsColor = 'rgba(255, 255, 0, 0.7)'
   players =  namePlayers();
+  messageForPlayers(players['playerA']['name'], players['playerA']['color']['nameColor']);
+
 
   startGame.click(function(){
+    chips.css('background-color', 'rgb(128, 128, 128)');
     players = namePlayers();
     countingMoves = 1;
   });
@@ -110,21 +137,31 @@ $('document').ready(function(){
 
       if(countingMoves%2){
           playerWhoPlay = players['playerA'];
+          messageForPlayers(players['playerB']['name'], players['playerB']['color']['nameColor']);
         }else{
           playerWhoPlay = players['playerB'];
+          messageForPlayers(players['playerA']['name'], players['playerA']['color']['nameColor']);
         };
 
+
       var lastChip = checkingColumn(this);
-      console.log(lastChip);
-      switchingColor(lastChip["coloredChip"], playerWhoPlay['color']);
-      var vertically = checkingVertically(lastChip['selectedColumn'], playerWhoPlay['color']);
-      var horizonally = checkingHorizonatally(lastChip['coloredChip'], playerWhoPlay['color']);
+      switchingColor(lastChip["coloredChip"], playerWhoPlay['color']['rgb']);
+      var vertically = checkingVertically(lastChip['selectedColumn'], playerWhoPlay['color']['rgb']);
+      var horizonally = checkingHorizonatally(lastChip['coloredChip'], playerWhoPlay['color']['rgb']);
+      checkingDiagonally(lastChip['selectedColumn'], playerWhoPlay['color']['rgb']);
+
       if (vertically || horizonally){
         alert(`Player ${playerWhoPlay['name']} won`);
-      };
-      // console.log(lastChip['coloredChip']);
-      countingMoves+= 1;
+        var endMessage = prompt('Do you want to play again? yes/no');
 
+        if(endMessage == 'yes'){
+            chips.css('background-color', 'rgb(128, 128, 128)');
+            countingMoves = 1;
+          }else{
+            alert('If you want to play again later please click restar button');
+          }
+      };
+      countingMoves+= 1;
   });
 
 });
